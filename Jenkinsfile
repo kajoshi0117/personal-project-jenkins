@@ -12,6 +12,7 @@ pipeline {
             steps{
             sh 'javac Main.java'
             sh 'java Main.java'
+            }
         }
     }
 }
