@@ -8,5 +8,9 @@ pipeline {
                 sh 'echo Hello World'
             }
         }
+        stage ('deploy'){
+            sh 'javac Main.java'
+            sh 'java Main.java'
+        }
     }
 }
