@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-            System.out.println("Hello World!");
+            System.out.println("Hello Paramount from Java!");
 
         //     final String API_KEY = "e683ba2e3fc040489e8222836230902";
         // Scanner input = new Scanner(System.in);
