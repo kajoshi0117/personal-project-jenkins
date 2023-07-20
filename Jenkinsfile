@@ -1,8 +1,7 @@
 // Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
-def props = readProperties file: './version.properties'
-def versionNum = props['version']
-def rcNum = props['rcNum']
+def versionNum = "12.0.52"
+def rcNum = 1
 
 pipeline {
     agent any
