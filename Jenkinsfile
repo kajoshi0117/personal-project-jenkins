@@ -1,5 +1,9 @@
 // Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
+def props = readProperties file: './version.properties'
+def versionNum = props['version']
+def rcNum = props['rcNum']
+
 pipeline {
     agent any
     stages {
@@ -20,9 +24,6 @@ pipeline {
         // }
         stage ('Release'){
             steps{
-            def props = readProperties file: './version.properties'
-            def versionNum = props['version']
-            def rcNum = props['rcNum']
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
             sh "gh release create v${versionNum} --title ${versionNum}.${rcNum} --prerelease"
