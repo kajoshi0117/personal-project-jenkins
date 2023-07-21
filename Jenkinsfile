@@ -25,7 +25,8 @@ pipeline {
             environment {
                 GH_TOKEN = credentials('cd364393-33dd-4b1e-aaca-2a1a5f0ec4e4')
             }
-            steps{ 
+            steps{
+            rcNum = rcNum + 1 
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
             sh "gh release create v${versionNum} --title ${versionNum}.${rcNum} --prerelease"
