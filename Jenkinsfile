@@ -1,7 +1,7 @@
 // Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
 def versionNum = "12.0.52"
-def rcNum = 1
+def rcNum = 2
 
 pipeline {
     agent any
