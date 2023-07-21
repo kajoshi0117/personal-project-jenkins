@@ -22,14 +22,13 @@ pipeline {
         //     }
         // }
         stage ('Release'){
-            withCredentials([string(credentialsId: 'cd364393-33dd-4b1e-aaca-2a1a5f0ec4e4', variable: 'GH_TOKEN')]) {
-                withEnv(['GH_TOKEN=GH_TOKEN'])
-                steps{ 
+            environment {
+                GH_TOKEN = credentials('cd364393-33dd-4b1e-aaca-2a1a5f0ec4e4')
+            }
+            steps{ 
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
             sh "gh release create v${versionNum} --title ${versionNum}.${rcNum} --prerelease"
-                }
-            }
         }
     }
 }
