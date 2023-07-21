@@ -29,7 +29,7 @@ pipeline {
                 script {rcNum = rcNum + 1 }
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
-            sh "gh release create v${versionNum} --title ${versionNum}.${rcNum} --prerelease"
+            sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
         }
     }
 }
