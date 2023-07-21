@@ -23,7 +23,7 @@ pipeline {
         // }
         stage ('Release'){
             environment {
-                GH_TOKEN = credentials('cd364393-33dd-4b1e-aaca-2a1a5f0ec4e4')
+                GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
             steps{
                 script {rcNum = rcNum + 1 }
