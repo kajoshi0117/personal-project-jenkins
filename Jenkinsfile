@@ -28,7 +28,7 @@ pipeline {
             steps{
                 script {
                     Properties properties = new Properties()
-                    File propertiesFile = new File('version.properties')
+                    File propertiesFile = new File('./version.properties')
                     propertiesFile.withInputStream {
                         properties.load(it)
                     }
