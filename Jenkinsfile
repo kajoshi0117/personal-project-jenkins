@@ -1,7 +1,7 @@
 // Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
-def versionNum = "12.0.52"
-def rcNum = 2
+def versionNum
+def rcNum
 
 pipeline {
     agent any
@@ -26,7 +26,16 @@ pipeline {
                 GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
             steps{
-                script {rcNum = rcNum + 1 }
+                script {
+                    Properties properties = new Properties()
+                    File propertiesFile = new File('version.properties')
+                    propertiesFile.withInputStream {
+                        properties.load(it)
+                    }
+                    versionNum = properties.version
+                    rcNum = properties.rcNumAmt
+                    rcNum = rcNum + 1
+                }
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
             sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
