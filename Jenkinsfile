@@ -28,9 +28,10 @@ pipeline {
             steps{
                 sh "ls -a"
                 sh "pwd"
+                sh "echo env.WORKSPACE"
                 script {
                     Properties properties = new Properties()
-                    File propertiesFile = new File('/Users/spongebob/Jenkins/Home/workspace/devops-test/ketan_joshi/tag-release-test/version.properties')
+                    File propertiesFile = new File("env.WORKSPACE/version.properties")
                     propertiesFile.withInputStream {
                         properties.load(it)
                     }
