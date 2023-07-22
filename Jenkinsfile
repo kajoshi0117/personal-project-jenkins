@@ -26,9 +26,10 @@ pipeline {
                 GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
             steps{
+                sh "ls -a"
                 script {
                     Properties properties = new Properties()
-                    File propertiesFile = new File('./version.properties')
+                    File propertiesFile = new File('version.properties')
                     propertiesFile.withInputStream {
                         properties.load(it)
                     }
