@@ -28,10 +28,10 @@ pipeline {
             steps{
                 sh "ls -a"
                 sh "pwd"
-                sh "echo env.WORKSPACE"
+                sh "echo ${env.WORKSPACE}"
                 script {
                     Properties properties = new Properties()
-                    File propertiesFile = new File("env.WORKSPACE/version.properties")
+                    File propertiesFile = new File("${env.WORKSPACE}/version.properties")
                     propertiesFile.withInputStream {
                         properties.load(it)
                     }
