@@ -27,9 +27,10 @@ pipeline {
             }
             steps{
                 sh "ls -a"
+                sh "pwd"
                 script {
                     Properties properties = new Properties()
-                    File propertiesFile = new File('version.properties')
+                    File propertiesFile = new File('/Users/ketan.joshi/Hello World Jenkins/version.properties')
                     propertiesFile.withInputStream {
                         properties.load(it)
                     }
