@@ -32,7 +32,7 @@ pipeline {
                 sh "pwd"
                 sh "echo ${env.WORKSPACE}"
                 script {
-                def properties = new File("version.properties") as String[]
+                def properties = new File("$workspace/version.properties") as String[]
                 println(properties)
                 //     Properties properties = new Properties()
                 //     File propertiesFile = new File("${env.WORKSPACE}/version.properties")
