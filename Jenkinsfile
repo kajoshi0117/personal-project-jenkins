@@ -30,18 +30,20 @@ pipeline {
                 sh "pwd"
                 sh "echo ${env.WORKSPACE}"
                 script {
-                    Properties properties = new Properties()
-                    File propertiesFile = new File("${env.WORKSPACE}/version.properties")
-                    propertiesFile.withInputStream {
-                        properties.load(it)
-                    }
-                    versionNum = properties.version
-                    rcNum = properties.rcNumAmt
-                    rcNum = rcNum + 1
+                def properties = new File("./version.properties") as String[]
+                println(properties)
+                //     Properties properties = new Properties()
+                //     File propertiesFile = new File("${env.WORKSPACE}/version.properties")
+                //     propertiesFile.withInputStream {
+                //         properties.load(it)
+                //     }
+                //     versionNum = properties.version
+                //     rcNum = properties.rcNumAmt
+                //     rcNum = rcNum + 1
                 }
-            echo "Version Number: ${versionNum}"
-            echo "RC Number: ${rcNum}"
-            sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
+            // echo "Version Number: ${versionNum}"
+            // echo "RC Number: ${rcNum}"
+            // sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
         }
     }
 }
