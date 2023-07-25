@@ -29,8 +29,6 @@ pipeline {
                 GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
             steps{
-                deleteDir()
-                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: '2ecf4603-d741-4681-9d31-8fa6a6742d35', url: 'https://github.com/kajoshi0117/personal-project-jenkins.git']]]
                 sh "ls -a"
                 sh "pwd"
                 echo "${env.WORKSPACE}"
@@ -66,7 +64,7 @@ pipeline {
                 properties = properties.replaceAll(~"rcNumAmt=[0-9]+",updateRcNumAmt)
                 println("Updated RC Amount:" + updateRcNumAmt)
             }
-            echo "New Properties: ${properties}}"
+            echo "New Properties:\n ${properties}"
             writeFile file: "version.properties", text: properties
             sh "git add Jenkinsfile; git commit -m \"Incrementing RC Amount\""
             sh "git push"
