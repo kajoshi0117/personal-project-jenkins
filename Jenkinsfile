@@ -33,10 +33,13 @@ pipeline {
                 sh "pwd"
                 echo "${env.WORKSPACE}"
                 script {
-                    properties = new File("$workspace/version.properties") as String[]
-                    String versionNumText = properties[0].substring(11)
-                    println(versionNumText)
+                    // properties = new File("$workspace/version.properties") as String[]
+                    properties = readFile(file: 'version.properties')
+                    // String versionNumText = properties[0].substring(11)
+                    // println(versionNumText)
                     println(properties)
+
+                //------Attempting to read in properties-----------
                 //     Properties properties = new Properties()
                 //     File propertiesFile = new File("${env.WORKSPACE}/version.properties")
                 //     propertiesFile.withInputStream {
@@ -46,6 +49,7 @@ pipeline {
                 //     rcNum = properties.rcNumAmt
                 //     rcNum = rcNum + 1
                 }
+            //--------Creating the release in github, which is working---------------
             // echo "Version Number: ${versionNum}"
             // echo "RC Number: ${rcNum}"
             // sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
