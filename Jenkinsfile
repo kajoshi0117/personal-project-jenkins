@@ -2,6 +2,7 @@
 /* Requires the Docker Pipeline plugin */
 def versionNum
 def rcNum
+def properties
 
 pipeline {
     agent any
@@ -30,10 +31,12 @@ pipeline {
                 checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: '2ecf4603-d741-4681-9d31-8fa6a6742d35', url: 'https://github.com/kajoshi0117/personal-project-jenkins.git']]]
                 sh "ls -a"
                 sh "pwd"
-                sh "echo ${env.WORKSPACE}"
+                echo "${env.WORKSPACE}"
                 script {
-                def properties = new File("$workspace/version.properties") as String[]
-                println(properties)
+                    def properties = new File("$workspace/version.properties") as String[]
+                    String versionNumText = properties[0].substring(11)
+                    println(versionNumText)
+                    println(properties)
                 //     Properties properties = new Properties()
                 //     File propertiesFile = new File("${env.WORKSPACE}/version.properties")
                 //     propertiesFile.withInputStream {
