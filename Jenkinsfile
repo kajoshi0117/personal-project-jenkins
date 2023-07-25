@@ -36,7 +36,7 @@ pipeline {
                     properties = readFile(file: 'version.properties')
                     properties = properties.split("\n")
                     println(properties)
-                    versionNum = properties[0].substring(11)
+                    versionNum = properties[0].substring(12)
                     println(versionNum)
                     
 
