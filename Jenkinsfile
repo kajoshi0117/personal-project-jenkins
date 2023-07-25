@@ -36,8 +36,8 @@ pipeline {
                     properties = readFile(file: 'version.properties')
                     properties = properties.split("\n")
                     versionNum = properties[0].substring(12)
-                    def rcNumText = properties[1].substring(10)
-                    println(rcNumText)
+                    rcNum = properties[1].substring(10)
+                    println
                     // rcNum = rcNumText.toInteger()
                     // println("Data type of rcNum: " + rcNum.getClass())
                     
