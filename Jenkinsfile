@@ -54,17 +54,19 @@ pipeline {
                     rcNum = rcNum + 1
                 }
             //--------Creating the release in github, which is working---------------
-            echo "${properties}"
+            echo "${propertiesArray}"
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
-            sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
+            // sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
             
             //--------Update rcNumAmt in properties file and commit to repo--------------
             script{
                 //Prepare the text to write
-                def updateRcNumAmt = "rcNumAmt" + rcNum
+                def updateRcNumAmt = "rcNumAmt=" + rcNum
                 properties = properties.replaceAll(~"rcNumAmt=[0-9]+",updateRcNumAmt)
+                println("Updated RC Amount:" + updateRcNumAmt)
             }
+            echo "New Properties: ${properties}}"
             writeFile file: "version.properties", text: properties
             sh "git add Jenkinsfile; git commit -m \"Incrementing RC Amount\""
             sh "git push"
