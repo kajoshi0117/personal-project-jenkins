@@ -36,7 +36,7 @@ pipeline {
                     properties = readFile(file: 'version.properties')
                     properties = properties.split("\n")
                     versionNum = properties[0].substring(12)
-                    rcNum = properties[1].substring(10)
+                    rcNum = properties[1]
                     // rcNum = rcNumText.toInteger()
                     // println("Data type of rcNum: " + rcNum.getClass())
                     
@@ -52,6 +52,7 @@ pipeline {
                 //     rcNum = rcNum + 1
                 }
             //--------Creating the release in github, which is working---------------
+            echo "${properties}"
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
             // sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
