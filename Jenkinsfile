@@ -66,7 +66,7 @@ pipeline {
             }
             echo "New Properties:\n ${properties}"
             writeFile file: "version.properties", text: properties
-            sh "git add Jenkinsfile; git commit -m \"Incrementing RC Amount\""
+            sh "git add version.properties; git commit -m \"Incrementing RC Amount\""
             sh "git push"
             echo "Release tagged in github at https://github.com/kajoshi0117/personal-project-jenkins/releases/tag/v${versionNum}.${rcNum}"
         }
