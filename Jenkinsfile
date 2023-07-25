@@ -35,9 +35,9 @@ pipeline {
                 script {
                     properties = readFile(file: 'version.properties')
                     properties = properties.split("\n")
-                    println(properties)
                     versionNum = properties[0].substring(12)
-                    println(versionNum)
+                    rcNum = properties[1].substring(10) as Integer
+                    println(rcNum.getClass())
                     
 
                 //------Attempting to read in properties-----------
@@ -51,8 +51,8 @@ pipeline {
                 //     rcNum = rcNum + 1
                 }
             //--------Creating the release in github, which is working---------------
-            // echo "Version Number: ${versionNum}"
-            // echo "RC Number: ${rcNum}"
+            echo "Version Number: ${versionNum}"
+            echo "RC Number: ${rcNum}"
             // sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
         }
     }
