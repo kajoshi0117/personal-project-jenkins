@@ -33,7 +33,7 @@ pipeline {
                 sh "pwd"
                 echo "${env.WORKSPACE}"
                 script {
-                    def properties = new File("$workspace/version.properties") as String[]
+                    properties = new File("$workspace/version.properties") as String[]
                     String versionNumText = properties[0].substring(11)
                     println(versionNumText)
                     println(properties)
