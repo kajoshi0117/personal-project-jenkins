@@ -33,8 +33,8 @@ pipeline {
                 sh "pwd"
                 echo "${env.WORKSPACE}"
                 script {
-                    // properties = new File("$workspace/version.properties") as String[]
-                    properties = readFile(file: 'version.properties')
+                    properties = new File('version.properties') as String[]
+                    // properties = readFile(file: 'version.properties')
                     // String versionNumText = properties[0].substring(11)
                     // println(versionNumText)
                     println(properties)
