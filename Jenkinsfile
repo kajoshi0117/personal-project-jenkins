@@ -36,9 +36,9 @@ pipeline {
                 echo "${env.WORKSPACE}"
                 script {
                     properties = readFile(file: 'version.properties')
-                    properties = properties.split("\n")
-                    versionNum = properties[0].substring(12)
-                    def rcNumText = properties[1].substring(9)
+                    propertiesArray = properties.split("\n")
+                    versionNum = propertiesArray[0].substring(12)
+                    def rcNumText = propertiesArray[1].substring(9)
                     rcNum = rcNumText.toInteger()
                     // println("Data type of rcNum: " + rcNum.getClass())
                     
@@ -57,7 +57,18 @@ pipeline {
             echo "${properties}"
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
-            // sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
+            sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
+            
+            //--------Update rcNumAmt in properties file and commit to repo--------------
+            script{
+                //Prepare the text to write
+                def updateRcNumAmt = "rcNumAmt" + rcNum
+                properties = properties.replaceAll(~"rcNumAmt=[0-9]+",updateRcNumAmt)
+            }
+            writeFile file: "version.properties", text: properties
+            sh "git add Jenkinsfile; git commit -m \"Incrementing RC Amount\""
+            sh "git push"
+            echo "Release tagged in github at https://github.com/kajoshi0117/personal-project-jenkins/releases/tag/v${versionNum}.${rcNum}"
         }
     }
 }
