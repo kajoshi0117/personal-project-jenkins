@@ -37,7 +37,7 @@ pipeline {
                     properties = properties.split("\n")
                     versionNum = properties[0].substring(12)
                     rcNum = properties[1].substring(10) as Integer
-                    println(rcNum.getClass())
+                    println("Data type of rcNum: " + rcNum.getClass())
                     
 
                 //------Attempting to read in properties-----------
