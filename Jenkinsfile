@@ -12,6 +12,7 @@ pipeline {
         // }
         
         stage('build') {
+            agent any
             steps {
                 sh 'echo Hello World'
             }
@@ -23,6 +24,7 @@ pipeline {
         //     }
         // }
         stage ('Release'){
+            agent any
             environment {
                 GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
@@ -49,7 +51,7 @@ pipeline {
                 //     }
                 //     versionNum = properties.version
                 //     rcNum = properties.rcNumAmt
-                //     rcNum = rcNum + 1
+                    rcNum = rcNum + 1
                 }
             //--------Creating the release in github, which is working---------------
             echo "${properties}"
