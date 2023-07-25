@@ -33,11 +33,12 @@ pipeline {
                 sh "pwd"
                 echo "${env.WORKSPACE}"
                 script {
-                    properties = new File('version.properties') as String[]
-                    // properties = readFile(file: 'version.properties')
-                    // String versionNumText = properties[0].substring(11)
-                    // println(versionNumText)
+                    properties = readFile(file: 'version.properties')
+                    properties = properties.split("\n")
                     println(properties)
+                    versionNum = properties[0].substring(11)
+                    println(versionNum)
+                    
 
                 //------Attempting to read in properties-----------
                 //     Properties properties = new Properties()
