@@ -3,6 +3,7 @@
 def versionNum
 def rcNum
 def properties
+def env.build_type = 'Release'
 
 pipeline {
     agent any
@@ -30,6 +31,7 @@ pipeline {
         // }
         stage ('Release'){
             agent any
+            when {environment name: 'build_type', value: 'Release'}
             environment {
                 GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
@@ -43,9 +45,11 @@ pipeline {
                     versionNum = propertiesArray[0].substring(12)
 
                     //Rc Num amount
-                    def rcNumText = readFile(file: 'rc_num_amt.txt')
-                    rcNumText = rcNumText.substring(9)
-                    rcNum = rcNumText.toInteger()
+                    // def rcNumText = readFile(file: 'rc_num_amt.txt')
+                    // rcNumText = rcNumText.substring(9)
+                    // rcNum = rcNumText.toInteger()
+                    
+                    
                     // println("Data type of rcNum: " + rcNum.getClass())
                     
 
