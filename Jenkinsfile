@@ -17,6 +17,8 @@ pipeline {
                 sh '''
                 echo Hello World
                 echo \"rcNumAmt=1\" > rc_num_amt.txt
+                ls -a
+                git status
                 git add rc_num_amt.txt
                 git commit -m \"RC File Created\"
                 '''
