@@ -3,7 +3,7 @@
 def versionNum
 def rcNum
 def properties
-env.build_type = 'Release'
+env.build_type = 'Dev'
 
 pipeline {
     agent any
@@ -48,7 +48,7 @@ pipeline {
                     // def rcNumText = readFile(file: 'rc_num_amt.txt')
                     // rcNumText = rcNumText.substring(9)
                     // rcNum = rcNumText.toInteger()
-                    
+                    rcNum = 1
 
                     // println("Data type of rcNum: " + rcNum.getClass())
                     
