@@ -51,7 +51,7 @@ pipeline {
                     // rcNumText = rcNumText.substring(9)
                     rcNumText = rcNumText =~ /rcNumAmt=([\S\s]+)/
                     // rcNum = rcNumText.toInteger()
-                    println(rcNum)
+                    println(rcNumText)
                     // rcNum = 1
 
                     // println("Data type of rcNum: " + rcNum.getClass())
