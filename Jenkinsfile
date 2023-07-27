@@ -38,7 +38,6 @@ pipeline {
                 GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
             steps{
-                try{
                 sh "ls -a"
                 sh "pwd"
                 echo "${env.WORKSPACE}"
@@ -49,8 +48,10 @@ pipeline {
 
                     //Rc Num amount
                     def rcNumText = readFile(file: 'rc_num_amt.txt')
-                    rcNumText = rcNumText.substring(9)
+                    // rcNumText = rcNumText.substring(9)
+                    rcNumText = rcNumText =~ /rcNumAmt=([\S\s]+)/
                     rcNum = rcNumText.toInteger()
+                    println(rcNum)
                     // rcNum = 1
 
                     // println("Data type of rcNum: " + rcNum.getClass())
@@ -64,29 +65,26 @@ pipeline {
                 //     }
                 //     versionNum = properties.version
                 //     rcNum = properties.rcNumAmt
-                    rcNum = rcNum + 1
+                    // rcNum = rcNum + 1
                 }
             //--------Creating the release in github, which is working---------------
-            echo "${propertiesArray}"
-            echo "Version Number: ${versionNum}"
-            echo "RC Number: ${rcNum}"
-            sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
+            // echo "${propertiesArray}"
+            // echo "Version Number: ${versionNum}"
+            // echo "RC Number: ${rcNum}"
+            // sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
             
             //--------Update rcNumAmt in properties file and commit to repo--------------
-            script{
-            //     //Prepare the text to write and update rcNumAmt
-                updateRcNumAmt = "rcNumAmt=" + rcNum
-            //     properties = properties.replaceAll(~"rcNumAmt=[0-9]+",updateRcNumAmt)
-            //     println("Updated RC Amount: " + rcNum)
-            }
-            // echo "New Properties:\n${properties}"
-            writeFile file: "rc_num_amt.txt", text: updateRcNumAmt
-            sh "git add rc_num_amt.txt; git commit -m \"Incrementing RC Amount\""
-            sh "git push origin HEAD:main"
-            echo "Release tagged in github at https://github.com/kajoshi0117/personal-project-jenkins/releases/tag/v${versionNum}.${rcNum}"
-                } catch (err) {
-                    echo "FAILED:\n${err}"
-                }
+            // script{
+            // //     //Prepare the text to write and update rcNumAmt
+            //     updateRcNumAmt = "rcNumAmt=" + rcNum
+            // //     properties = properties.replaceAll(~"rcNumAmt=[0-9]+",updateRcNumAmt)
+            // //     println("Updated RC Amount: " + rcNum)
+            // }
+            // // echo "New Properties:\n${properties}"
+            // writeFile file: "rc_num_amt.txt", text: updateRcNumAmt
+            // sh "git add rc_num_amt.txt; git commit -m \"Incrementing RC Amount\""
+            // sh "git push origin HEAD:main"
+            // echo "Release tagged in github at https://github.com/kajoshi0117/personal-project-jenkins/releases/tag/v${versionNum}.${rcNum}"
         } 
         
     }
