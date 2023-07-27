@@ -51,9 +51,9 @@ pipeline {
                     // rcNumText = rcNumText.substring(9)
                     rcNumText = rcNumText =~ /[0-9]+/
                     rcNumText = rcNumText.findAll()
-                    rcNumText = rcNumText[0]
+                    rcNum = rcNumText[0]
                     // rcNum = rcNumText.toInteger()
-                    println(rcNumText)
+                    println(rcNum)
                     // rcNum = 1
 
                     // println("Data type of rcNum: " + rcNum.getClass())
