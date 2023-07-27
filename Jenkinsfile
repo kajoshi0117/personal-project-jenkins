@@ -76,12 +76,12 @@ pipeline {
             sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
             
             //--------Update rcNumAmt in properties file and commit to repo--------------
-            // script{
+            script{
             // //     //Prepare the text to write and update rcNumAmt
                 updateRcNumAmt = "rcNumAmt=" + rcNum
             // //     properties = properties.replaceAll(~"rcNumAmt=[0-9]+",updateRcNumAmt)
             // //     println("Updated RC Amount: " + rcNum)
-            // }
+            }
             // // echo "New Properties:\n${properties}"
             writeFile file: "rc_num_amt.txt", text: updateRcNumAmt
             sh "git add rc_num_amt.txt; git commit -m \"Incrementing RC Amount\""
