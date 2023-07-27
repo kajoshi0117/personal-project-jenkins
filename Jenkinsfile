@@ -22,7 +22,7 @@ pipeline {
                 ls -a
                 git status
                 git add rc_num_amt.txt; git commit -m "rc num amt text file created"
-                git push
+                git push origin HEAD:main
                 '''
             }
         }
