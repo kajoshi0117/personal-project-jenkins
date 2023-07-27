@@ -44,7 +44,10 @@ pipeline {
                 script {
                     properties = readFile(file: 'version.properties')
                     propertiesArray = properties.split("\n")
-                    versionNum = propertiesArray[0].substring(12)
+                    versionNumText = propertiesArray[0]
+                    versionNumText = versionNumText =~ /[0-9]+\.[0-9]+\.[0-9]+/
+                    versionNumText = versionNumText.findAll()
+                    versionNum = versionNumText[0]
 
                     //Rc Num amount
                     def rcNumText = readFile(file: 'rc_num_amt.txt')
@@ -53,10 +56,7 @@ pipeline {
                     rcNumText = rcNumText.findAll()
                     rcNum = rcNumText[0]
                     rcNum = rcNum.toInteger()
-                    println(rcNum)
-                    // rcNum = 1
 
-                    // println("Data type of rcNum: " + rcNum.getClass())
                     
 
                 //------Attempting to read in properties-----------
@@ -70,7 +70,6 @@ pipeline {
                     rcNum = rcNum + 1
                 }
             //--------Creating the release in github, which is working---------------
-            echo "${propertiesArray}"
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
             sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
