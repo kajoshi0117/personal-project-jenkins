@@ -31,10 +31,11 @@ pipeline {
         // }
         stage ('Release'){
             agent any
+            when {environment name: 'build_type', value: 'Release'}
             environment {
                 GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
-            if (env.build_type == 'Release'){
+            steps{
                 sh "ls -a"
                 sh "pwd"
                 echo "${env.WORKSPACE}"
@@ -80,9 +81,6 @@ pipeline {
             // sh "git add version.properties; git commit -m \"Incrementing RC Amount\""
             // sh "git push origin HEAD:main"
             // echo "Release tagged in github at https://github.com/kajoshi0117/personal-project-jenkins/releases/tag/v${versionNum}.${rcNum}"
-            }
-        else {
-            echo "Non release job. Skipping..."
         }
     }
 }
