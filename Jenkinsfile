@@ -52,7 +52,7 @@ pipeline {
                     rcNumText = rcNumText =~ /[0-9]+/
                     rcNumText.find()
                     // rcNum = rcNumText.toInteger()
-                    println(rcNumText)
+                    println(rcNumText.find())
                     // rcNum = 1
 
                     // println("Data type of rcNum: " + rcNum.getClass())
