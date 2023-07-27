@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh '''
                 echo Hello World
-                echo \"rcNumAmt=1\" > rc_num_amt.txt
+                echo \"rcNumAmt=3\" > rc_num_amt.txt
                 ls -a
                 git status
                 '''
