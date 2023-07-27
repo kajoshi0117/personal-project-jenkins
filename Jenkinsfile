@@ -51,6 +51,7 @@ pipeline {
                     // rcNumText = rcNumText.substring(9)
                     rcNumText = rcNumText =~ /[0-9]+/
                     rcNumText = rcNumText.findAll()
+                    rcNumText = rcNumText[0]
                     // rcNum = rcNumText.toInteger()
                     println(rcNumText)
                     // rcNum = 1
@@ -66,26 +67,26 @@ pipeline {
                 //     }
                 //     versionNum = properties.version
                 //     rcNum = properties.rcNumAmt
-                    // rcNum = rcNum + 1
+                    rcNum = rcNum + 1
                 }
             //--------Creating the release in github, which is working---------------
-            // echo "${propertiesArray}"
-            // echo "Version Number: ${versionNum}"
-            // echo "RC Number: ${rcNum}"
-            // sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
+            echo "${propertiesArray}"
+            echo "Version Number: ${versionNum}"
+            echo "RC Number: ${rcNum}"
+            sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
             
             //--------Update rcNumAmt in properties file and commit to repo--------------
             // script{
             // //     //Prepare the text to write and update rcNumAmt
-            //     updateRcNumAmt = "rcNumAmt=" + rcNum
+                updateRcNumAmt = "rcNumAmt=" + rcNum
             // //     properties = properties.replaceAll(~"rcNumAmt=[0-9]+",updateRcNumAmt)
             // //     println("Updated RC Amount: " + rcNum)
             // }
             // // echo "New Properties:\n${properties}"
-            // writeFile file: "rc_num_amt.txt", text: updateRcNumAmt
-            // sh "git add rc_num_amt.txt; git commit -m \"Incrementing RC Amount\""
-            // sh "git push origin HEAD:main"
-            // echo "Release tagged in github at https://github.com/kajoshi0117/personal-project-jenkins/releases/tag/v${versionNum}.${rcNum}"
+            writeFile file: "rc_num_amt.txt", text: updateRcNumAmt
+            sh "git add rc_num_amt.txt; git commit -m \"Incrementing RC Amount\""
+            sh "git push origin HEAD:main"
+            echo "Release tagged in github at https://github.com/kajoshi0117/personal-project-jenkins/releases/tag/v${versionNum}.${rcNum}"
         } 
         
     }
