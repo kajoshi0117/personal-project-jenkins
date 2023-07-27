@@ -50,6 +50,7 @@ pipeline {
                     def rcNumText = readFile(file: 'rc_num_amt.txt')
                     // rcNumText = rcNumText.substring(9)
                     rcNumText = rcNumText =~ /rcNumAmt=([\S\s]+)/
+                    rcNumText.find()
                     // rcNum = rcNumText.toInteger()
                     println(rcNumText)
                     // rcNum = 1
