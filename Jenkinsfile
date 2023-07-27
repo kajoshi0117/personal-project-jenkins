@@ -4,6 +4,7 @@ def versionNum
 def rcNum
 def properties
 env.build_type = 'Dev'
+def updateRcNumAmt
 
 pipeline {
     agent any
@@ -35,7 +36,6 @@ pipeline {
                 GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
             steps{
-                when {environment name: 'build_type', value: 'Release'}
                 sh "ls -a"
                 sh "pwd"
                 echo "${env.WORKSPACE}"
@@ -45,10 +45,10 @@ pipeline {
                     versionNum = propertiesArray[0].substring(12)
 
                     //Rc Num amount
-                    // def rcNumText = readFile(file: 'rc_num_amt.txt')
-                    // rcNumText = rcNumText.substring(9)
-                    // rcNum = rcNumText.toInteger()
-                    rcNum = 1
+                    def rcNumText = readFile(file: 'rc_num_amt.txt')
+                    rcNumText = rcNumText.substring(9)
+                    rcNum = rcNumText.toInteger()
+                    // rcNum = 1
 
                     // println("Data type of rcNum: " + rcNum.getClass())
                     
@@ -61,26 +61,26 @@ pipeline {
                 //     }
                 //     versionNum = properties.version
                 //     rcNum = properties.rcNumAmt
-                    // rcNum = rcNum + 1
+                    rcNum = rcNum + 1
                 }
             //--------Creating the release in github, which is working---------------
             echo "${propertiesArray}"
             echo "Version Number: ${versionNum}"
             echo "RC Number: ${rcNum}"
-            // sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
+            sh "gh release create v${versionNum}.${rcNum} --title ${versionNum}.${rcNum} --prerelease"
             
             //--------Update rcNumAmt in properties file and commit to repo--------------
-            // script{
+            script{
             //     //Prepare the text to write and update rcNumAmt
-            //     def updateRcNumAmt = "rcNumAmt=" + rcNum
+                updateRcNumAmt = "rcNumAmt=" + rcNum
             //     properties = properties.replaceAll(~"rcNumAmt=[0-9]+",updateRcNumAmt)
             //     println("Updated RC Amount: " + rcNum)
-            // }
+            }
             // echo "New Properties:\n${properties}"
-            // writeFile file: "version.properties", text: properties
-            // sh "git add version.properties; git commit -m \"Incrementing RC Amount\""
-            // sh "git push origin HEAD:main"
-            // echo "Release tagged in github at https://github.com/kajoshi0117/personal-project-jenkins/releases/tag/v${versionNum}.${rcNum}"
+            writeFile file: "rc_num_amt.txt", text: updateRcNumAmt
+            sh "git add rc_num_amt.txt; git commit -m \"Incrementing RC Amount\""
+            sh "git push origin HEAD:main"
+            echo "Release tagged in github at https://github.com/kajoshi0117/personal-project-jenkins/releases/tag/v${versionNum}.${rcNum}"
         }
     }
 }
