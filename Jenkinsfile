@@ -35,7 +35,7 @@ pipeline {
         stage ('Release'){
             agent any
             environment {
-                GH_TOKEN = credentials('3874127f-5872-4995-a049-538c575ee267')
+                GH_TOKEN = credentials('027f6170-6a85-41d5-bcc6-89e8d8417a98')
             }
             steps{
                 sh "ls -a"
