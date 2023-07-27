@@ -31,13 +31,11 @@ pipeline {
         // }
         stage ('Release'){
             agent any
-            script {
-                when {environment name: 'build_type', value: 'Release'}
-            }
             environment {
                 GH_TOKEN = credentials('6e2096c7-744f-48aa-bd8f-ce5e820e6327')
             }
             steps{
+                when {environment name: 'build_type', value: 'Release'}
                 sh "ls -a"
                 sh "pwd"
                 echo "${env.WORKSPACE}"
