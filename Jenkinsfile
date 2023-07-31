@@ -15,12 +15,12 @@ pipeline {
             steps {
                 sh '''
                 git checkout -b release/12.0.54
-                gh release create v12.0.54.0 --title 12.0.54.0 --prerelease
                 echo \"rcNumAmt=1\" > rc_num_amt.txt
                 ls -a
                 git status
                 git add rc_num_amt.txt; git commit -m "rc num amt text file created"
-                git push origin HEAD:main
+                git push origin HEAD:12.0.54
+                gh release create v12.0.54.0 --title 12.0.54.0 --prerelease
                 '''
             }
         }
