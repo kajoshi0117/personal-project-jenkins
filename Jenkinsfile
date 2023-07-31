@@ -12,6 +12,9 @@ pipeline {
         
         stage('build') {
             agent any
+            environment {
+                GH_TOKEN = credentials('027f6170-6a85-41d5-bcc6-89e8d8417a98')
+            }
             steps {
                 sh '''
                 git switch 12.0.54
