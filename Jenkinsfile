@@ -14,7 +14,6 @@ pipeline {
             agent any
             steps {
                 sh '''
-                git checkout -b release/12.0.54
                 echo \"rcNumAmt=1\" > rc_num_amt.txt
                 ls -a
                 git status
@@ -24,12 +23,7 @@ pipeline {
                 '''
             }
         }
-        stage ('deploy'){
-            steps{
-            sh 'javac Main.java'
-            sh 'java Main'
-            }
-        }
+        
         stage ('Release'){
             agent any
             environment {
