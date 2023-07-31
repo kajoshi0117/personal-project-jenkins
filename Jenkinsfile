@@ -10,23 +10,23 @@ pipeline {
     agent any
     stages {
         
-        stage('build') {
-            agent any
-            environment {
-                GH_TOKEN = credentials('027f6170-6a85-41d5-bcc6-89e8d8417a98')
-            }
-            steps {
-                sh '''
-                git checkout -b 12.0.54
-                echo \"rcNumAmt=1\" > rc_num_amt.txt
-                ls -a
-                git status
-                git add rc_num_amt.txt; git commit -m \"rc num amt text file created\"
-                git push origin HEAD:refs/heads/12.0.54
-                gh release create v12.0.54.0 --title \"12.0.54.0\" --prerelease
-                '''
-            }
-        }
+        // stage('build') {
+        //     agent any
+        //     environment {
+        //         GH_TOKEN = credentials('027f6170-6a85-41d5-bcc6-89e8d8417a98')
+        //     }
+        //     steps {
+        //         sh '''
+        //         git checkout -b 12.0.54
+        //         echo \"rcNumAmt=1\" > rc_num_amt.txt
+        //         ls -a
+        //         git status
+        //         git add rc_num_amt.txt; git commit -m \"rc num amt text file created\"
+        //         git push origin HEAD:refs/heads/12.0.54
+        //         gh release create v12.0.54.0 --title \"12.0.54.0\" --prerelease
+        //         '''
+        //     }
+        // }
 
         stage ('Release'){
             agent any
