@@ -17,7 +17,7 @@ pipeline {
             }
             steps {
                 sh '''
-                git switch 12.0.54
+                git checkout -b 12.0.54
                 echo \"rcNumAmt=1\" > rc_num_amt.txt
                 ls -a
                 git status
